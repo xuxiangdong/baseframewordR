@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:b="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+	<!-- 开启默认的拦截器 -->
+	<http auto-config='true' access-denied-page="/403.jsp">
+	    <intercept-url pattern="/**/*.jpg" filters="none"/>
+	    <intercept-url pattern="/**/*.png" filters="none"/>
+	    <intercept-url pattern="/**/*.gif" filters="none"/>
+	    <intercept-url pattern="/**/*.ico" filters="none"/>
+	    <intercept-url pattern="/**/*.css" filters="none"/>
+	    <intercept-url pattern="/**/*.js" filters="none"/>
+	    
+		<intercept-url pattern="/login.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/logout.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/admin.jsp" access="ROLE_ADMIN" />
+		<intercept-url pattern="/**" access="ROLE_USER" />
+		<form-login login-page="/login.jsp"
+			authentication-failure-url="/login.jsp?error=true"
+			default-target-url="/admin.jsp" />
+		<!-- session-management是针对session的管理. 这里可以不配置. 如有需求可以配置. -->
+		<!-- id登陆唯一. 后登陆的账号会挤掉第一次登陆的账号 error-if-maximum-exceeded="true" 禁止2次登陆; 
+			session-fixation-protection="none" 防止伪造sessionid攻击. 用户登录成功后会销毁用户当前的session. 
+			创建新的session,并把用户信息复制到新session中. -->
+		<session-management session-fixation-protection="none">
+			<concurrency-control />
+		</session-management>
+		<!-- logout-success-url:成功注销后跳转到的页面; -->  
+        <logout logout-success-url="/logout.jsp"/>  
+	</http>
+	<!-- 权限管理者 -->
+	<authentication-manager>
+		<!-- 权限提供者 -->
+		<authentication-provider>
+			<!-- 可提供登陆访问的用户 -->
+			<!-- <user-service> <user name="admin" password="admin" authorities="ROLE_USER, 
+				ROLE_ADMIN" /> <user name="user" password="user" authorities="ROLE_USER" 
+				/> </user-service> -->
+			<jdbc-user-service data-source-ref="dataSource" />
+		</authentication-provider>
+	</authentication-manager>
+	<b:bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<b:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<b:property name="url" value="jdbc:mysql://localhost:3306/test" />
+		<b:property name="username" value="root" />
+		<b:property name="password" value="root" />
+	</b:bean>
+
+</b:beans>
+
+
+
+
+	
+
+	
+
