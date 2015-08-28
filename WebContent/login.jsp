@@ -86,7 +86,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3 panel panel-default">
-			<div id="errorinfo" style="color: red;"></div>
+			<div id="errorinfo" style="color: red;height: 20px; margin-bottom: -40px;"></div>
                 <h2 class="margin-base-vertical" style="margin-button:" ><span class="glyphicon glyphicon-user">&nbsp;</span></h2>
 				<h2 class="margin-base-vertical text-center title"  style="color: white;"><strong>欢迎登录</strong></h2>
 
@@ -94,7 +94,7 @@
 
                 
 
-               <form id="id_login" class="form-horizontal" role="form" name="f" action="/SpringSecurityTest/j_spring_security_check" method="POST">
+               <form id="id_login" class="form-horizontal" role="form" name="f" action="/SpringSecurityTest/login" method="POST">
                     <div class="form-group " style="border:0px red solid">
 								<label for="inputEmail3" class="col-sm-4 control-label"  style="color: white;">账号</label>
 								<div class="col-sm-6">
@@ -108,10 +108,9 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputPassword3" class="col-sm-8 control-label" style="color: white;"> 两周之内不必登陆</label>
-								<div class="col-sm-2">
-								 <input type="checkbox" class="form-control"  name="_spring_security_remember_me5" />
-								</div>
+								
+								 <input type="checkbox" style="margin-left: 80px;" name="_spring_security_remember_me5" />
+								 <span  style="color: white;"> 两周之内不必登陆</span>
 							</div>
                    
                     <p class="text-center">
