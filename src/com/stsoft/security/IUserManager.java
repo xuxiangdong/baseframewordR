@@ -21,6 +21,9 @@ public class IUserManager
     }
     public User search(String username)
     {
-        return null;
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword("123");
+        return user;
     }
 }
